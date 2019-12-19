@@ -1,7 +1,14 @@
 package br.com.danilloparreira.gerenciador.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Usuario implements Serializable {
@@ -17,6 +24,10 @@ public class Usuario implements Serializable {
 	@Column(nullable = false)
 	private String senha;
 
+	@ManyToOne
+	@JoinColumn(name = "perfil_id")
+	private Perfil perfil;
+	
 	public Usuario() {
 		super();
 	}
@@ -41,7 +52,7 @@ public class Usuario implements Serializable {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email.toLowerCase();
 	}
 
 	public String getLogin() {
@@ -49,7 +60,7 @@ public class Usuario implements Serializable {
 	}
 
 	public void setLogin(String login) {
-		this.login = login;
+		this.login = login.toLowerCase();
 	}
 
 	public String getSenha() {
@@ -58,6 +69,14 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 
 	@Override
