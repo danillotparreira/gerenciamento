@@ -4,13 +4,17 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
+import java.util.List;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import br.com.danilloparreira.gerenciador.model.EnumCadastros;
-import br.com.danilloparreira.gerenciador.model.EnumRelatorios;
+import br.com.danilloparreira.gerenciador.model.CadastroAcao;
 import br.com.danilloparreira.gerenciador.model.Perfil;
+import br.com.danilloparreira.gerenciador.model.RelatorioAcao;
+import br.com.danilloparreira.gerenciador.model.enuns.EnumCadastros;
+import br.com.danilloparreira.gerenciador.model.enuns.EnumRelatorios;
 
 public class PerfilDaoTest {
 
@@ -49,5 +53,33 @@ public class PerfilDaoTest {
 		assertNotNull(perfilSalvo.getId());
 		exception.expect(Exception.class);
 		perfilDao.merge(perfil2);
+	}
+
+	@Test
+	public void deveBuscarPerfilEmCascata() {
+		PerfilDao perfilDao = new PerfilDaoImpl();
+		List<Perfil> lista = perfilDao.findAll();
+		for (Perfil perfil : lista) {
+			System.out.println("Perfil :" + perfil.getDescricao());
+			System.out.println("|=============|");
+			System.out.println("| Cadastros   |");
+			System.out.println("|=============|");
+			for (CadastroAcao acao : perfil.getCadastroAcoes()) {
+				System.out.println("=============");
+				System.out.println(acao.getEnumCadastros().getDescricao());
+				System.out.println("Ler: " + acao.getListar());
+				System.out.println("Criar: " + acao.getCriar());
+				System.out.println("Editar: " + acao.getEditar());
+				System.out.println("Remover: " + acao.getRemover());
+			}
+			System.out.println("|=============|");
+			System.out.println("| Relatórios  |");
+			System.out.println("|=============|");
+			for (RelatorioAcao acao : perfil.getRelatorioAcoes()) {
+				System.out.println(acao.getEnumRelatorios().getDescricao());
+				System.out.println("Visualizar: " + acao.getVisualizar());
+			}
+			System.out.println("------------------");
+		}
 	}
 }
