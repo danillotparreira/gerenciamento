@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="head">
+		<h:outputScript library="js" name="password.js" />
+		<title>Cadastro de Usuario</title>
+	</ui:define>
+
+	<ui:define name="content" id="formulario">
+		<h:form id="form">
+			<p:panel id="cadastro" header="Cadastro de Usuário"
+				rendered="#{loginbean.getCadastroAcao('usuario').criar ? true : (loginbean.getCadastroAcao('usuario').editar and (usuariobean.usuario.id != null))}">
+				<f:facet name="actions">
+					<p:commandLink id="ajax" update=":form"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+						action="#{usuariobean.create}" title="Novo" immediate="true" process="@this">
+						<h:outputText styleClass="ui-icon pi pi-file" update="cadastro" />
+					</p:commandLink>
+				</f:facet>
+
+				<div class="ui-fluid">
+					<p:panelGrid columns="4"
+						columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-noborder">
+						<p:outputLabel for="id" value="ID:" style="font-weight:bold" />
+						<p:inputText id="id" value="#{usuariobean.usuario.id}" readonly="true" />
+
+						<p:outputLabel for="nome" value="Nome:" style="font-weight:bold" />
+						<p:inputText id="nome" value="#{usuariobean.usuario.nome}" required="true"
+							requiredMessage="Deve ser informado o nome do usuário." />
+							
+						<p:outputLabel for="login" value="Login:" style="font-weight:bold" />
+						<p:inputText id="login" value="#{usuariobean.usuario.login}" required="true"
+							requiredMessage="Deve ser informado o Login." />
+
+						<p:outputLabel for="email" value="Email:" style="font-weight:bold" />
+						<p:inputText id="email" value="#{usuariobean.usuario.email}" required="true"
+							requiredMessage="Deve ser informado o Email." />
+
+						<p:outputLabel for="senha" value="Senha:" style="font-weight:bold"
+							rendered="#{usuariobean.usuario.id == null}" />
+						<h:panelGroup style="display: flex;" rendered="#{usuariobean.usuario.id == null}">
+							<p:password id="senha" value="#{usuariobean.usuario.senha}" required="true"
+								widgetVar="passwordinput" requiredMessage="Deve ser informado a senha." />
+							<button id="showHide" type="button" onclick="buttonShowHide()" style="padding: 5px;">
+								<i class="pi pi-eye"></i>
+							</button>
+						</h:panelGroup>
+
+						<p:outputLabel for="@next" value="Perfil:" style="font-weight:bold" />
+						<p:selectOneMenu id="perfil" value="#{usuariobean.usuario.perfil}"
+							converter="genericConverter">
+							<f:selectItems value="#{usuariobean.perfis}" var="perfil" itemLabel="#{perfil.descricao}"
+								itemValue="#{perfil}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="ativo" value="Ativo:" style="font-weight:bold" />
+						<p:selectBooleanButton id="ativo" value="#{usuariobean.usuario.ativo}" onLabel="Sim"
+							offLabel="Não" onIcon="pi pi-check" offIcon="pi pi-times" style="width:60px" />
+					</p:panelGrid>
+				</div>
+			</p:panel>
+			<p:toolbar rendered="#{loginbean.getCadastroAcao('usuario').criar ? true : (loginbean.getCadastroAcao('usuario').editar and (usuariobean.usuario.id != null))}">
+				<f:facet name="left">
+					<p:commandButton id="salvar" title="Salvar" value="Salvar" action="#{usuariobean.save}"
+						update=":formlista" icon="pi pi-save" style="width: 90px;" ajax="false" />
+					<p:commandButton id="deletar" title="Deletar" value="Deletar" action="#{usuariobean.delete}"
+						update=":formlista" icon="pi pi-trash" style="width: 90px;" immediate="true" process="@this"
+						rendered="#{loginbean.getCadastroAcao('usuario').remover? usuariobean.usuario.id != null: (usuario.id > 2 ? true : false)}"
+						ajax="false" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton id="desfazer"
+						value="#{usuariobean.usuario.id == null ? 'Limpar' : 'Desfazer'}" type="reset"
+						update="cadastro" process="@this" icon="pi pi-undo" style="width: 100px;">
+						<p:resetInput target="cadastro" />
+					</p:commandButton>
+				</f:facet>
+			</p:toolbar>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"
+					immediate="true" />
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+		<br />
+		<h:form id="formlista" rendered="#{loginbean.getCadastroAcao('usuario').listar}">
+			<p:dataTable id="lista" var="usuario" value="#{usuariobean.usuarios}" reflow="true"
+				paginator="true" rows="10" emptyMessage="Nenhum registro encontrado.">
+				<p:column headerText="#" style="width: 80px;">
+					<h:outputText value="#{usuario.id}" />
+				</p:column>
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{usuario.nome}" />
+				</p:column>
+				<p:column headerText="Login">
+					<h:outputText value="#{usuario.login}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{usuario.email}" />
+				</p:column>
+
+				<p:column headerText="Email Verificado">
+					<h:outputText value="#{usuario.confirmadoEmail? 'Sim': 'Não'}" />
+				</p:column>
+
+				<p:column headerText="Perfil">
+					<h:outputText value="#{usuario.perfil.descricao}" />
+				</p:column>
+
+				<p:column style="width:32px;text-align: center"
+					rendered="#{loginbean.getCadastroAcao('usuario').editar}">
+					<p:commandButton action="#{usuariobean.edit()}" update=":form" icon="pi pi-search" title="Visualizar" immediate="true">
+						<f:setPropertyActionListener value="#{usuario}" target="#{usuariobean.usuarioSelecionado}" />
+						<f:ajax execute="@form" render="@form :cadastro" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"
+					immediate="true" />
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

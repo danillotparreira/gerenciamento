@@ -5,4 +5,6 @@ import br.com.danilloparreira.gerenciador.model.Usuario;
 
 public interface UsuarioDao extends GenericDao<Usuario> {
 
+	public Usuario isUsuarioReadyToLogin(String login, String senha);
+	
 }
