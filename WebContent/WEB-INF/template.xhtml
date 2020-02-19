@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+	<link rel="shortcut icon" type="image/x-icon" href="#{resource['img/favicon.ico']}" />
+	<ui:insert name="head" />
+	<style type="text/css">
+.ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell
+	{
+	text-align: center;
+}
+
+.customPanelGrid .ui-panelgrid-content {
+	align-items: center;
+}
+
+.ui-noborder {
+	border: none !important;
+}
+
+.box, .sample-layout>div {
+	background-color: #cce4f7;
+	text-align: center;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	border-radius: 4px;
+}
+
+.box-stretched {
+	height: 100%;
+}
+
+.sample-layout {
+	margin: 0;
+}
+
+.sample-layout>div {
+	border: 1px solid #ffffff;
+}
+
+.vertical-container {
+	margin: 0;
+	height: 200px;
+	background: #efefef;
+	border-radius: 4px;
+}
+
+.nested-grid .p-col-4 {
+	padding-bottom: 1em;
+}
+
+.layout {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	flex-wrap: wrap;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.content {
+	flex: 1;
+}
+
+body, .header ul, .header li, .header p {
+	padding: 0px;
+	margin: 0px !important;
+	list-style: none;
+	font-size: 1.2rem;
+	font-family: Arial;
+	list-style: none
+}
+
+.header a {
+	color: white;
+	text-decoration: none;
+}
+
+.header {
+	background: #007ad9;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	display: flex;
+	padding: 0px 10px;
+}
+
+.content {
+	margin-right: 0px;
+}
+
+.nav-menu {
+	display: flex;
+	align-items: center;
+}
+
+.nav-menu li {
+	margin-left: 10px;
+}
+
+.nav-menu li a {
+	display: block;
+	padding: 10px;
+}
+</style>
+
+	<h:outputStylesheet library="css" name="primeflex/primeflex.css" />
+
+</h:head>
+
+<c:choose>
+	<c:when test="#{loginbean.loggedIn}">
+		<h:body class="p-grid nested-grid layout">
+			<header class="p-col-12 header"> <ui:include src="./header.xhtml" /> </header>
+			<div class="p-grid p-col content">
+				<div class="p-col-fixed menu" style="width: 300px">
+					<ui:include src="./menu.xhtml" />
+				</div>
+				<main class="p-col"> <ui:insert name="content" id="content" /> </main>
+			</div>
+			<footer class="p-col-12"> <ui:include src="./footer.xhtml" /> </footer>
+		</h:body>
+	</c:when>
+	<c:otherwise>
+		<ui:insert name="content-not-logged" id="content" />
+	</c:otherwise>
+</c:choose>
+</html>

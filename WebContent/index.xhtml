@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	<ui:define name="head">
+		<h:outputStylesheet library="css" name="primeflex/primeflex.css" />
+		<title>Página Inicial</title>
+
+	</ui:define>
+
+	<ui:define name="content" id="formulario">
+		<h1>Bem vindo,  #{loginbean.usuario.login}, ao Sistema de Gerenciamento.</h1>
+	</ui:define>
+	<ui:define name="content-not-logged">
+		<h1>Bem vindo ao Sistema de Gerenciamento !</h1>
+		<p:link outcome="login.jsf" value="Acesse o sistema" />
+	</ui:define>
+</ui:composition>

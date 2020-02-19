@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+/* width */
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+::-webkit-scrollbar-corner {
+	height: 6px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #007ad9;
+}
