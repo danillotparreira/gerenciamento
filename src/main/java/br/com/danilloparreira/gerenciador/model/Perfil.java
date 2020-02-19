@@ -8,14 +8,22 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import br.com.danilloparreira.gerenciador.converter.BaseEntity;
+import br.com.danilloparreira.gerenciador.model.enuns.EnumCadastros;
+import br.com.danilloparreira.gerenciador.model.enuns.EnumRelatorios;
+
 @Entity
-public class Perfil implements Serializable {
+public class Perfil implements Serializable, BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -27,12 +35,14 @@ public class Perfil implements Serializable {
 	@OneToMany(mappedBy = "perfil")
 	private List<Usuario> usuarios;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "perfil_id")
+	@Fetch(FetchMode.SUBSELECT)
 	private List<CadastroAcao> cadastroAcoes;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "perfil_id")
+	@Fetch(FetchMode.SUBSELECT)
 	private List<RelatorioAcao> relatorioAcoes;
 
 	public Perfil() {
@@ -52,6 +62,16 @@ public class Perfil implements Serializable {
 		Arrays.asList(EnumCadastros.values()).forEach(r -> cadastroAcoes.add(new CadastroAcao(r)));
 		relatorioAcoes = new ArrayList<>();
 		Arrays.asList(EnumRelatorios.values()).forEach(r -> relatorioAcoes.add(new RelatorioAcao(r)));
+	}
+
+	public Perfil(Long id, String descricao, List<Usuario> usuarios, List<CadastroAcao> cadastroAcoes,
+			List<RelatorioAcao> relatorioAcoes) {
+		super();
+		this.id = id;
+		this.descricao = descricao;
+		this.usuarios = usuarios;
+		this.cadastroAcoes = cadastroAcoes;
+		this.relatorioAcoes = relatorioAcoes;
 	}
 
 	public Long getId() {

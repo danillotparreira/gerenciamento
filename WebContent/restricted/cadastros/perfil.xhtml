@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="head">
+		<title>Cadastro de Perfil</title>
+
+	</ui:define>
+
+	<ui:define name="content" id="formulario">
+		<h:form id="form">
+			<p:panel id="cadastro" header="Cadastro de Perfil de acesso">
+				<f:facet name="actions">
+					<p:commandLink id="ajax" update=":form"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+						action="#{perfilbean.create}" title="Novo" immediate="true" process="@this">
+						<h:outputText styleClass="ui-icon pi pi-file" update="cadastro" />
+					</p:commandLink>
+				</f:facet>
+
+				<div class="ui-fluid">
+					<p:panelGrid columns="4"
+						columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-noborder">
+						<p:outputLabel for="id" value="ID:" style="font-weight:bold" />
+						<p:inputText id="id" value="#{perfilbean.perfil.id}" readonly="true" />
+
+						<p:outputLabel for="descricao" value="Descrição:" style="font-weight:bold" />
+						<p:inputText id="descricao" value="#{perfilbean.perfil.descricao}" required="true"
+							requiredMessage="Deve ser informado a descrição." />
+					</p:panelGrid>
+					<p:tabView id="tabview">
+						<p:tab id="acessoCadastros" title="Cadastros">
+							<p:dataTable id="cadastroAcao" var="acao" value="#{perfilbean.perfil.cadastroAcoes}"
+								editable="true" editMode="cell">
+								<p:column headerText="Acesso a área" style="width:250px">
+									<h:outputText id="descricao_acao" value="#{acao.enumCadastros.descricao}"
+										style="font-weight:bold" />
+								</p:column>
+								<p:column headerText="Listar">
+										<p:selectBooleanButton id="listar" value="#{acao.listar}" offLabel="Proibido"
+											onLabel="Permitido" style="width:90px"
+											widgetVar="#{acao.enumCadastros.descricao.toLowerCase().concat('_listar')}">
+											<p:ajax event="change" update="cadastroAcao" />
+										</p:selectBooleanButton>
+								</p:column>
+								<p:column headerText="Criar">
+									<p:selectBooleanButton id="criar" value="#{acao.criar}" offLabel="Proibido"
+										onLabel="Permitido" style="width:90px"
+										widgetVar="#{acao.enumCadastros.descricao.toLowerCase().concat('_criar')}">
+										<p:ajax event="change" update="cadastroAcao" />
+									</p:selectBooleanButton>
+								</p:column>
+								<p:column headerText="Editar">
+									<p:selectBooleanButton id="editar" value="#{acao.editar}" offLabel="Proibido"
+										onLabel="Permitido" style="width:90px"
+										widgetVar="#{acao.enumCadastros.descricao.toLowerCase().concat('_editar')}">
+										<p:ajax event="change" update="cadastroAcao" />
+									</p:selectBooleanButton>
+								</p:column>
+								<p:column headerText="Remover">
+									<p:selectBooleanButton id="remover" value="#{acao.remover}" offLabel="Proibido"
+										onLabel="Permitido" style="width:90px"
+										widgetVar="#{acao.enumCadastros.descricao.toLowerCase().concat('_remover')}">
+										<p:ajax event="change" update="cadastroAcao" />
+									</p:selectBooleanButton>
+								</p:column>
+								<p:column headerText="Marcar Todos">
+									<p:triStateCheckbox value="#{acao.alternaSelecao}" id="marcar" stateOneIcon="pi pi-times"
+										widgetVar="#{acao.enumCadastros.descricao.toLowerCase().concat('_marcar')}"
+										stateThreeIcon="pi pi-plus" stateTwoIcon="pi pi-minus" stateOneTitle="Todos proibidos"
+										stateTwoTitle="Alguns permitidos" stateThreeTitle="Todos permitidos"
+										itemLabel="#{acao.alternaSelecao == 0 ? 'Nenhum permitido' : (acao.alternaSelecao == 2 ? 'Todos permitidos': 'Algun(s) permitido(s)')}">
+										<p:ajax event="change" update="cadastroAcao" listener="#{perfilbean.triStateCheckboxEvent(acao.enumCadastros.descricao)}" />
+									</p:triStateCheckbox>
+
+								</p:column>
+							</p:dataTable>
+						</p:tab>
+						<p:tab id="acessoRelatorios" title="Relatórios">
+							<p:dataTable id="relatorioAcao" var="relatorio" value="#{perfilbean.perfil.relatorioAcoes}"
+								editable="true">
+								<p:column headerText="Relatorio" style="width:250px">
+									<h:outputText id="descricao_acao" value="#{relatorio.enumRelatorios.descricao}"
+										style="font-weight:bold" />
+								</p:column>
+								<p:column headerText="Visualizar">
+									<p:selectBooleanButton id="relatorio" value="#{relatorio.visualizar}" offLabel="Proibido"
+										onLabel="Permitido" style="width:90px">
+									</p:selectBooleanButton>
+								</p:column>
+							</p:dataTable>
+						</p:tab>
+					</p:tabView>
+				</div>
+			</p:panel>
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="salvar" title="Salvar" value="Salvar" action="#{perfilbean.save}"
+						update=":formlista" icon="pi pi-save" style="width: 90px;" ajax="false" />
+					<p:commandButton id="deletar" title="Deletar" value="Deletar" action="#{perfilbean.delete}"
+						update=":formlista" icon="pi pi-trash" style="width: 90px;" immediate="true" process="@this"
+						rendered="#{perfilbean.perfil.id != null}" ajax="false" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton id="desfazer" value="#{perfilbean.perfil.id == null ? 'Limpar' : 'Desfazer'}"
+						type="reset" update="cadastro tabview acessoRelatorios" process="@this" icon="pi pi-undo"
+						style="width: 100px;">
+						<p:resetInput target="cadastro" />
+					</p:commandButton>
+				</f:facet>
+			</p:toolbar>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"
+					immediate="true" />
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+		<br />
+		<h:form id="formlista" rendered="#{loginbean.getCadastroAcao('perfil').listar}">
+			<p:dataTable id="lista" var="perfil" value="#{perfilbean.perfis}" reflow="true" paginator="true"
+				rows="10" emptyMessage="Nenhum registro encontrado.">
+				<p:column headerText="#" style="width: 80px;">
+					<h:outputText value="#{perfil.id}" />
+				</p:column>
+
+				<p:column headerText="Descrição">
+					<h:outputText value="#{perfil.descricao}" />
+				</p:column>
+
+				<p:column style="width:32px;text-align: center"
+					rendered="#{loginbean.getCadastroAcao('perfil').editar}">
+					<p:commandButton update=":form" icon="pi pi-search" title="Visualizar" immediate="true"
+						action="#{perfilbean.edit}">
+						<f:setPropertyActionListener value="#{perfil}" target="#{perfilbean.perfilSelecionado}" />
+						<f:ajax execute="@form" render="@form :cadastro" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"
+					immediate="true" />
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+		<h:outputScript library="js" name="perfilCheckbox.js" />
+	</ui:define>
+</ui:composition>

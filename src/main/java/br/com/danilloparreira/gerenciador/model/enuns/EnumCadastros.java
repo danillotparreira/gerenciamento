@@ -1,15 +1,16 @@
-package br.com.danilloparreira.gerenciador.model;
+package br.com.danilloparreira.gerenciador.model.enuns;
 
-public enum EnumRelatorios {
+public enum EnumCadastros {
 	USUARIO("Usuario"), PERFIL("Perfil");
 
 	private String descricao;
 
-	private EnumRelatorios(String descricao) {
+	private EnumCadastros(String descricao) {
 		this.descricao = descricao;
 	}
 
 	public String getDescricao() {
 		return descricao;
 	}
+
 }

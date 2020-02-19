@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import br.com.danilloparreira.gerenciador.model.enuns.EnumRelatorios;
+
 @Entity
 public class RelatorioAcao implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -92,6 +94,12 @@ public class RelatorioAcao implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "RelatorioAcao [id=" + id + ", perfi=" + perfi + ", enumRelatorios=" + enumRelatorios + ", visualizar="
+				+ visualizar + "]";
 	}
 
 }
