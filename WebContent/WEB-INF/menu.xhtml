@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h:form>
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+
+		<p:panelMenu style="width:285px">
+			<p:submenu label="Administração" expanded="true">
+				<p:submenu label="Cadastros de Pessoas" icon="pi pi-home">
+					<p:menuitem value="Usuario" outcome="/restricted/cadastros/usuario.jsf" icon="pi pi-home"
+						rendered="#{loginbean.getCadastroAcao('usuario').listar ? true : loginbean.getCadastroAcao('usuario').criar}" />
+					<p:menuitem value="Perfil" outcome="/restricted/cadastros/perfil.jsf" icon="pi pi-file"
+						rendered="#{loginbean.getCadastroAcao('perfil').listar ? true : loginbean.getCadastroAcao('perfil').criar}"  />
+				</p:submenu>
+			</p:submenu>
+			<p:separator />
+			<p:submenu label="Relatórios">
+				<p:submenu label="Administração" icon="pi pi-home">
+					<p:menuitem value="Usuario" outcome="/restricted/relatorio/usuario.jsf" icon="pi pi-home" />
+					<p:menuitem value="Perfil" outcome="/restricted/relatorio/perfil.jsf" icon="pi pi-file" />
+				</p:submenu>
+			</p:submenu>
+		</p:panelMenu>
+	</h:form>
+</ui:composition>
+</html>
