@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<h:outputStylesheet library="css" name="primeflex/primeflex.css" />
+	<title>Página Inicial</title>
+	<title>Acesso ao Sistema</title>
+
+	<h:outputStylesheet library="css" name="util.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="fonts" name="font-awesome.min.css" />
+	<h:outputStylesheet library="fonts" name="ubuntu/Ubuntu-Bold.ttf'" />
+</h:head>
+
+<h:body>
+	<h:panelGroup styleClass="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-50 p-b-90">
+				<h:form id="formLogin" enctype="multipart/form-data" styleClass="login100-form validate-form flex-sb flex-w">
+					<p:growl autoUpdate="true" id="messages" />
+
+					<span class="login100-form-title p-b-51"> Login </span>
+
+					<div class="wrap-input100 validate-input m-b-16">
+						<p:inputText id="login" placeholder="Login" value="#{loginbean.login}" required="true"
+							requiredMessage="Deve ser informado o login" styleClass="input100" />
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-16">
+						<p:password id="password" placeholder="Senha" value="#{loginbean.senha}" required="true"
+							requiredMessage="Deve ser informado a senha." styleClass="input100" />
+					</div>
+
+
+					<div class="flex-sb-m w-full p-t-3 p-b-24">
+						<div />
+						<div>
+							<p:commandLink value="Esqueceu a senha?" styleClass="txt1" />
+						</div>
+					</div>
+
+					<div class="container-login100-form-btn m-t-17">
+						<p:commandButton action="#{loginbean.doLogin()}" value="Entrar" styleClass="login100-form-btn" />
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</h:panelGroup>
+</h:body>
+</html>
