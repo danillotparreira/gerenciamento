@@ -47,7 +47,6 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 		entityTransaction.commit();
 		em.close();
 	}
-
 	public T findById(Long id) {
 		EntityManager em = getEntityManager();
 		EntityTransaction entityTransaction = em.getTransaction();
