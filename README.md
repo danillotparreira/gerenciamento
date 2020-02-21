@@ -18,3 +18,8 @@ Podendo ser econtrado a classe neste link: https://github.com/danillotparreira/g
 Qualquer usuário que cadastre um novo usuário não poderá alterar a senha do mesmo, sendo de responsabilidade do usuário pedir para alterar a senha no login ao clicar no botão esqueceu a senha.
 
 O suporte tem permissão para alterar a senha do usuário.
+
+
+## Objetivo final
+
+Este sistema terá como forma de gerar novos sitemas a partir deste já que boa parte dos sistemas terá um controle de acesso e usuário.
