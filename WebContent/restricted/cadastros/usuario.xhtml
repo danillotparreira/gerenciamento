@@ -31,7 +31,7 @@
 						<p:outputLabel for="nome" value="Nome:" style="font-weight:bold" />
 						<p:inputText id="nome" value="#{usuariobean.usuario.nome}" required="true"
 							requiredMessage="Deve ser informado o nome do usuário." />
-							
+
 						<p:outputLabel for="login" value="Login:" style="font-weight:bold" />
 						<p:inputText id="login" value="#{usuariobean.usuario.login}" required="true"
 							requiredMessage="Deve ser informado o Login." />
@@ -39,12 +39,12 @@
 						<p:outputLabel for="email" value="Email:" style="font-weight:bold" />
 						<p:inputText id="email" value="#{usuariobean.usuario.email}" required="true"
 							requiredMessage="Deve ser informado o Email." />
-
 						<p:outputLabel for="senha" value="Senha:" style="font-weight:bold"
-							rendered="#{usuariobean.usuario.id == null}" />
-						<h:panelGroup style="display: flex;" rendered="#{usuariobean.usuario.id == null}">
+							rendered="#{usuariobean.usuario.id == null? true: (loginbean.usuario.perfil.descricao == 'Suporte' ? true : false)}" />
+						<h:panelGroup style="display: flex;"
+							rendered="#{usuariobean.usuario.id == null? true: (loginbean.usuario.perfil.descricao == 'Suporte' ? true : false)}">
 							<p:password id="senha" value="#{usuariobean.usuario.senha}" required="true"
-								widgetVar="passwordinput" requiredMessage="Deve ser informado a senha." />
+								widgetVar="passwordinput" requiredMessage="Deve ser informado a senha." maxlength="20" />
 							<button id="showHide" type="button" onclick="buttonShowHide()" style="padding: 5px;">
 								<i class="pi pi-eye"></i>
 							</button>
@@ -54,7 +54,8 @@
 						<p:selectOneMenu id="perfil" value="#{usuariobean.usuario.perfil}"
 							converter="genericConverter">
 							<f:selectItems value="#{usuariobean.perfis}" var="perfil" itemLabel="#{perfil.descricao}"
-								itemValue="#{perfil}" />
+								itemValue="#{perfil}" 
+								itemDisabled="#{usuariobean.usuario.id == 2 and perfil.descricao != 'Administrador'}" />
 						</p:selectOneMenu>
 
 						<p:outputLabel for="ativo" value="Ativo:" style="font-weight:bold" />
@@ -63,13 +64,14 @@
 					</p:panelGrid>
 				</div>
 			</p:panel>
-			<p:toolbar rendered="#{loginbean.getCadastroAcao('usuario').criar ? true : (loginbean.getCadastroAcao('usuario').editar and (usuariobean.usuario.id != null))}">
+			<p:toolbar
+				rendered="#{loginbean.getCadastroAcao('usuario').criar ? true : (loginbean.getCadastroAcao('usuario').editar and (usuariobean.usuario.id != null))}">
 				<f:facet name="left">
 					<p:commandButton id="salvar" title="Salvar" value="Salvar" action="#{usuariobean.save}"
 						update=":formlista" icon="pi pi-save" style="width: 90px;" ajax="false" />
 					<p:commandButton id="deletar" title="Deletar" value="Deletar" action="#{usuariobean.delete}"
 						update=":formlista" icon="pi pi-trash" style="width: 90px;" immediate="true" process="@this"
-						rendered="#{loginbean.getCadastroAcao('usuario').remover? usuariobean.usuario.id != null: (usuario.id > 2 ? true : false)}"
+						rendered="#{usuariobean.usuario.id > 2 ? loginbean.getCadastroAcao('usuario').remover : false}"
 						ajax="false" />
 				</f:facet>
 				<f:facet name="right">
@@ -115,7 +117,8 @@
 
 				<p:column style="width:32px;text-align: center"
 					rendered="#{loginbean.getCadastroAcao('usuario').editar}">
-					<p:commandButton action="#{usuariobean.edit()}" update=":form" icon="pi pi-search" title="Visualizar" immediate="true">
+					<p:commandButton action="#{usuariobean.edit()}" update=":form" icon="pi pi-search"
+						title="Visualizar" immediate="true">
 						<f:setPropertyActionListener value="#{usuario}" target="#{usuariobean.usuarioSelecionado}" />
 						<f:ajax execute="@form" render="@form :cadastro" />
 					</p:commandButton>

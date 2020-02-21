@@ -20,6 +20,7 @@ public class Usuario implements Serializable, BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	private String sobrenome;
 	@Column(unique = true, nullable = false)
 	private String email;
 	@Column(unique = true, nullable = false)
@@ -41,8 +42,9 @@ public class Usuario implements Serializable, BaseEntity {
 		this.ativo = true;
 	}
 
-	public Usuario(String email, String login, String senha) {
+	public Usuario(String email, String nome, String login, String senha) {
 		super();
+		this.nome = nome;
 		this.email = email;
 		this.login = login;
 		this.senha = senha;
@@ -80,6 +82,14 @@ public class Usuario implements Serializable, BaseEntity {
 
 	public void setSenha(String senha) {
 		this.senha = senha.trim();
+	}
+
+	public String getSobrenome() {
+		return sobrenome;
+	}
+
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
 	}
 
 	public Perfil getPerfil() {

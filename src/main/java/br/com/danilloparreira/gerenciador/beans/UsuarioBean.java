@@ -52,7 +52,7 @@ public class UsuarioBean extends AbstractBean implements GenericBean {
 
 	@Override
 	public String save() {
-		if(usuario.getId() != null) {
+		if(usuario.getSenha().length() <= 20) {
 			String senhaMd5 = UtilSecurity.convertStringToMd5(usuario.getSenha());
 			usuario.setSenha(senhaMd5);
 		}
