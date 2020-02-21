@@ -18,7 +18,7 @@ public class AdicionaUsuarioEPerfilDefaut {
 	public void adicionaUsuarioAdministradorSuporteEPerfilSemPermissaoEAdministrador() {
 		UsuarioDao usuarioDao = new UsuarioDaoImpl();
 		PerfilDao perfilDao = new PerfilDaoImpl();
-		
+
 		Perfil perfil1 = new Perfil("Sem Permissão");
 		perfilDao.merge(perfil1);
 		Perfil perfil2 = new Perfil("Administrador");
@@ -28,7 +28,7 @@ public class AdicionaUsuarioEPerfilDefaut {
 			cadastroAcao.setListar(true);
 			cadastroAcao.setRemover(true);
 		}
-		for(RelatorioAcao relatorioAcao: perfil2.getRelatorioAcoes()) {
+		for (RelatorioAcao relatorioAcao : perfil2.getRelatorioAcoes()) {
 			relatorioAcao.setVisualizar(true);
 		}
 		perfil2 = perfilDao.merge(perfil2);
@@ -39,12 +39,14 @@ public class AdicionaUsuarioEPerfilDefaut {
 			cadastroAcao.setListar(true);
 			cadastroAcao.setRemover(true);
 		}
-		for(RelatorioAcao relatorioAcao: perfil3.getRelatorioAcoes()) {
+		for (RelatorioAcao relatorioAcao : perfil3.getRelatorioAcoes()) {
 			relatorioAcao.setVisualizar(true);
 		}
 		perfil3 = perfilDao.merge(perfil3);
-		Usuario administrador = new Usuario("admin@gmail.com", "admin", UtilSecurity.convertStringToMd5("admin"));
-		Usuario suporte = new Usuario("parreira16@gmail.com", "suporte", UtilSecurity.convertStringToMd5("suporte"));
+		Usuario administrador = new Usuario("admin@gmail.com", "Administrador", "admin",
+				UtilSecurity.convertStringToMd5("admin"));
+		Usuario suporte = new Usuario("suporte@gmail.com", "Suporte", "suporte",
+				UtilSecurity.convertStringToMd5("suporte"));
 		suporte.setPerfil(perfil3);
 		administrador.setPerfil(perfil2);
 		usuarioDao.merge(suporte);
