@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templateheader.xhtml">
+
+	<ui:define name="head">
+		<title>Configuração da conta</title>
+		<style type="text/css">
+.flex {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.flex .ui-button {
+	height: 32px;
+}
+
+.flex h3 {
+	margin: 0px;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="content" id="formulario">
+		<p:panel header="Configuração da conta">
+			<section class="flex">
+			<div>
+				<h3>Nome</h3>
+				<h:outputText value="#{loginbean.usuario.nome}" />
+			</div>
+			<p:linkButton value="Editar" /> </section>
+			<p:separator />
+			<section class="flex">
+			<div>
+				<h3>Email</h3>
+				<h:outputText value="#{loginbean.usuario.email}" />
+			</div>
+			<p:linkButton value="Editar" /> </section>
+			<p:separator />
+
+			<section class="flex">
+			<div>
+				<h3>Senha</h3>
+				<h:outputText value="********" />
+			</div>
+			<p:linkButton value="Editar" /> </section>
+		</p:panel>
+	</ui:define>
+</ui:composition>
