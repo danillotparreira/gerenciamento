@@ -12,7 +12,7 @@ import br.com.danilloparreira.gerenciador.model.RelatorioAcao;
 import br.com.danilloparreira.gerenciador.model.Usuario;
 import br.com.danilloparreira.gerenciador.utils.UtilSecurity;
 
-public class AdicionaUsuarioEPerfilDefaut {
+public class AdicionaUsuarioEPerfilDefault {
 
 	@Test
 	public void adicionaUsuarioAdministradorSuporteEPerfilSemPermissaoEAdministrador() {
