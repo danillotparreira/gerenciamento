@@ -1,18 +1,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
 
 	<p:link outcome="/index.jsf">
 		<h1>Sistema de Gerenciamento</h1>
 	</p:link>
-	<nav class="nav-menu">
+	<nav class="nav-menu"> <c:set var="nome" scope="session"
+		value="#{fn:split(loginbean.usuario.nome, ' ')}" />
+		<h:panelGroup rendered="#{loginbean.loggedIn}">
 		<li>
-			<p:commandButton value="#{loginbean.usuario.login}" icon="pi pi-user" />
+			<p:linkButton value="#{nome[0]}" outcome="/restricted/configuracao/conta.jsf" icon="pi pi-user" />
 		</li>
 		<li>
-			<p:commandButton  value="Logout" action="#{loginbean.doLogout()}" icon="pi pi-home" />
+			<p:commandButton id="logout" value="Logout" action="#{loginbean.doLogout()}" icon="pi pi-sign-out" />
 		</li>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{!loginbean.loggedIn}">
+		<li>
+			<p:linkButton value="Acesse o sistema" outcome="/login.jsf" icon="pi pi-sign-in"/>
+		</li>
+		</h:panelGroup>
 	</nav>
 
 </ui:composition>

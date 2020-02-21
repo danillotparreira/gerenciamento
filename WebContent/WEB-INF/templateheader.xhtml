@@ -90,7 +90,8 @@ body, .header ul, .header li, .header p {
 }
 
 .content {
-	margin-right: 0px;
+	width: 800px;
+	margin: auto;
 }
 
 .nav-menu {
@@ -106,32 +107,18 @@ body, .header ul, .header li, .header p {
 	display: block;
 	padding: 10px;
 }
-#logout{
-	padding: 10px;
-	border: 0;
-}
 </style>
 
 	<h:outputStylesheet library="css" name="primeflex/primeflex.css" />
 
 </h:head>
 
-<c:choose>
-	<c:set var="nome" scope="session" value="#{fn:split(loginbean.usuario.nome, ' ')}" />
-	<c:when test="#{loginbean.loggedIn}">
-		<h:body class="p-grid nested-grid layout">
-			<header class="p-col-12 header"> <ui:include src="./header.xhtml" /> </header>
-			<div class="p-grid p-col content">
-				<div class="p-col-fixed menu" style="width: 300px">
-					<ui:include src="./menu.xhtml" />
-				</div>
-				<main class="p-col"> <ui:insert name="content" id="content" /> </main>
-			</div>
-			<footer class="p-col-12"> <ui:include src="./footer.xhtml" /> </footer>
-		</h:body>
-	</c:when>
-	<c:otherwise>
-		<ui:insert name="content-not-logged" id="content" />
-	</c:otherwise>
-</c:choose>
+<c:set var="nome" scope="session" value="#{fn:split(loginbean.usuario.nome, ' ')}" />
+<h:body class="p-grid nested-grid layout">
+	<header class="p-col-12 header"> <ui:include src="./header.xhtml" /> </header>
+	<div class="content">
+		<main class="p-col"> <ui:insert name="content" id="content" /> </main>
+	</div>
+	<footer class="p-col-12"> <ui:include src="./footer.xhtml" /> </footer>
+</h:body>
 </html>

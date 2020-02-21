@@ -96,7 +96,7 @@
 					</p:tabView>
 				</div>
 			</p:panel>
-			<p:toolbar>
+			<p:toolbar rendered="#{perfilbean.perfil.id > 3 or perfilbean.perfil.id == null}">
 				<f:facet name="left">
 					<p:commandButton id="salvar" title="Salvar" value="Salvar" action="#{perfilbean.save}"
 						update=":formlista" icon="pi pi-save" style="width: 90px;" ajax="false" />
