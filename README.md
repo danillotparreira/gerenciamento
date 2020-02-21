@@ -23,3 +23,8 @@ O suporte tem permissão para alterar a senha do usuário.
 ## Objetivo final
 
 Este sistema terá como forma de gerar novos sitemas a partir deste já que boa parte dos sistemas terá um controle de acesso e usuário.
+
+
+# Ferramentas e Tecnologias
+
+Java Web, Maven, JSP, Tomcat, Postgres, Primefaces, JPA, Hibernate.
