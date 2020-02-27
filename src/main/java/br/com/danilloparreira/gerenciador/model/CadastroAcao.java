@@ -150,7 +150,9 @@ public class CadastroAcao implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
+	public boolean acessoPermitido() {
+		return this.criar && this.editar && this.listar && this.remover;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
