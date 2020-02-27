@@ -4,15 +4,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-import java.util.List;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import br.com.danilloparreira.gerenciador.model.CadastroAcao;
 import br.com.danilloparreira.gerenciador.model.Perfil;
-import br.com.danilloparreira.gerenciador.model.RelatorioAcao;
 import br.com.danilloparreira.gerenciador.model.enuns.EnumCadastros;
 import br.com.danilloparreira.gerenciador.model.enuns.EnumRelatorios;
 
@@ -24,7 +20,7 @@ public class PerfilDaoTest {
 	@Test
 	public void deveSalvarNovoPerfil() {
 		Perfil perfil = new Perfil();
-		perfil.setDescricao("Administrador");
+		perfil.setDescricao("Administrador teste");
 
 		PerfilDao perfilDao = new PerfilDaoImpl();
 		Perfil perfilSalvo = perfilDao.merge(perfil);
@@ -45,9 +41,9 @@ public class PerfilDaoTest {
 	@Test
 	public void naoDeveSalvarPerfilComDescricaoRepetida() {
 		Perfil perfil1 = new Perfil();
-		perfil1.setDescricao("descricaorepetida");
+		perfil1.setDescricao("descricaorepetida teste");
 		Perfil perfil2 = new Perfil();
-		perfil2.setDescricao("descricaorepetida");
+		perfil2.setDescricao("descricaorepetida teste");
 		PerfilDao perfilDao = new PerfilDaoImpl();
 		Perfil perfilSalvo = perfilDao.merge(perfil1);
 		assertNotNull(perfilSalvo.getId());
@@ -55,31 +51,4 @@ public class PerfilDaoTest {
 		perfilDao.merge(perfil2);
 	}
 
-	@Test
-	public void deveBuscarPerfilEmCascata() {
-		PerfilDao perfilDao = new PerfilDaoImpl();
-		List<Perfil> lista = perfilDao.findAll();
-		for (Perfil perfil : lista) {
-			System.out.println("Perfil :" + perfil.getDescricao());
-			System.out.println("|=============|");
-			System.out.println("| Cadastros   |");
-			System.out.println("|=============|");
-			for (CadastroAcao acao : perfil.getCadastroAcoes()) {
-				System.out.println("=============");
-				System.out.println(acao.getEnumCadastros().getDescricao());
-				System.out.println("Ler: " + acao.getListar());
-				System.out.println("Criar: " + acao.getCriar());
-				System.out.println("Editar: " + acao.getEditar());
-				System.out.println("Remover: " + acao.getRemover());
-			}
-			System.out.println("|=============|");
-			System.out.println("| Relatórios  |");
-			System.out.println("|=============|");
-			for (RelatorioAcao acao : perfil.getRelatorioAcoes()) {
-				System.out.println(acao.getEnumRelatorios().getDescricao());
-				System.out.println("Visualizar: " + acao.getVisualizar());
-			}
-			System.out.println("------------------");
-		}
-	}
 }

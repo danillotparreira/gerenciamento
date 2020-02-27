@@ -11,7 +11,7 @@ public class JPAUtil {
 
 	static {
 		try {
-			factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+			factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, PersistenceProperties.get());
 		} catch (Throwable ex) {
 			System.out.println("Não conseguiu criar a instância da EntityManagerFactory: " + ex.getMessage());
 			throw new ExceptionInInitializerError(ex);

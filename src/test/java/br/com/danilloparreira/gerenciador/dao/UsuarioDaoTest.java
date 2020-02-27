@@ -50,7 +50,7 @@ public class UsuarioDaoTest {
 	@Test
 	public void deveSalvarNovoUsuarioComPerfil() {
 		Perfil perfil = new Perfil();
-		perfil.setDescricao("Sem Permissão");
+		perfil.setDescricao("Sem Permissão teste");
 		PerfilDao perfilDao = new PerfilDaoImpl();
 		Perfil perfilSalvo = perfilDao.merge(perfil);
 		assertNotNull(perfilSalvo.getId());
@@ -63,7 +63,7 @@ public class UsuarioDaoTest {
 
 		UsuarioDao usuarioDao = new UsuarioDaoImpl();
 		Usuario usuarioSalvo = usuarioDao.merge(usuario);
-		assertThat(usuarioSalvo.getPerfil().getDescricao(), is("Sem Permissão"));
+		assertThat(usuarioSalvo.getPerfil().getDescricao(), is("Sem Permissão teste"));
 	}
 
 	@Test
