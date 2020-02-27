@@ -5,6 +5,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import br.com.danilloparreira.gerenciador.dao.PerfilDao;
 import br.com.danilloparreira.gerenciador.dao.PerfilDaoImpl;
 import br.com.danilloparreira.gerenciador.model.CadastroAcao;
@@ -75,10 +77,18 @@ public class PerfilBean extends AbstractBean implements GenericBean {
 
 	@Override
 	public String delete() {
-		perfilDao.deleteById(perfil);
-		msgDeletar();
-		create();
-		reset();
+		try {
+			perfilDao.deleteById(perfil);
+			msgDeletar();
+			create();
+			reset();
+
+		} catch (Exception e) {
+			if (e.getCause() instanceof ConstraintViolationException) {
+				msgError("Não foi possivel deletar pois existe usuário(s) cadastrado(s) para este perfil.",
+						"Erro ao deletar");
+			}
+		}
 		return "";
 	}
 
