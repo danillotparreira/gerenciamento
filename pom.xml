@@ -118,6 +118,17 @@
 	</dependencies>
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.3</version>
+				<configuration> 
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+				<executions>
+					<execution></execution>
+				</executions>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
