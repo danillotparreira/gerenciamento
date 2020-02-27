@@ -21,8 +21,8 @@
 			<p:separator />
 			<p:submenu label="Relatórios">
 				<p:submenu label="Administração" icon="pi pi-home">
-					<p:menuitem value="Usuario" outcome="/restricted/relatorio/usuario.jsf" icon="pi pi-home" />
-					<p:menuitem value="Perfil" outcome="/restricted/relatorio/perfil.jsf" icon="pi pi-file" />
+					<p:menuitem value="Usuario" outcome="/restricted/relatorio/usuario.jsf" icon="pi pi-home" rendered="#{loginbean.getRelatorioAcao('usuario').visualizar}" />
+					<p:menuitem value="Perfil" outcome="/restricted/relatorio/perfil.jsf" icon="pi pi-file"  rendered="#{loginbean.getRelatorioAcao('perfil').visualizar}" />
 				</p:submenu>
 			</p:submenu>
 		</p:panelMenu>
