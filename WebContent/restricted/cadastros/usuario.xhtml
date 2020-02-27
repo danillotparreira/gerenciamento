@@ -25,18 +25,18 @@
 					<p:panelGrid columns="4"
 						columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid"
 						styleClass="ui-panelgrid-blank ui-fluid ui-noborder">
-						<p:outputLabel for="id" value="ID:" style="font-weight:bold" />
+						<p:outputLabel for="id" value="ID:" style="" />
 						<p:inputText id="id" value="#{usuariobean.usuario.id}" readonly="true" />
 
-						<p:outputLabel for="nome" value="Nome:" style="font-weight:bold" />
+						<p:outputLabel for="nome" value="Nome:" />
 						<p:inputText id="nome" value="#{usuariobean.usuario.nome}" required="true"
 							requiredMessage="Deve ser informado o nome do usuário." />
 
-						<p:outputLabel for="login" value="Login:" style="font-weight:bold" />
+						<p:outputLabel for="login" value="Login:" />
 						<p:inputText id="login" value="#{usuariobean.usuario.login}" required="true"
 							requiredMessage="Deve ser informado o Login." />
 
-						<p:outputLabel for="email" value="Email:" style="font-weight:bold" />
+						<p:outputLabel for="email" value="Email:" />
 						<p:inputText id="email" value="#{usuariobean.usuario.email}" required="true"
 							requiredMessage="Deve ser informado o Email." />
 						<p:outputLabel for="senha" value="Senha:" style="font-weight:bold"
@@ -50,7 +50,7 @@
 							</button>
 						</h:panelGroup>
 
-						<p:outputLabel for="@next" value="Perfil:" style="font-weight:bold" />
+						<p:outputLabel for="@next" value="Perfil:" />
 						<p:selectOneMenu id="perfil" value="#{usuariobean.usuario.perfil}"
 							converter="genericConverter">
 							<f:selectItems value="#{usuariobean.perfis}" var="perfil" itemLabel="#{perfil.descricao}"
@@ -58,7 +58,7 @@
 								itemDisabled="#{usuariobean.usuario.id == 2 and perfil.descricao != 'Administrador'}" />
 						</p:selectOneMenu>
 
-						<p:outputLabel for="ativo" value="Ativo:" style="font-weight:bold" />
+						<p:outputLabel for="ativo" value="Ativo:" />
 						<p:selectBooleanButton id="ativo" value="#{usuariobean.usuario.ativo}" onLabel="Sim"
 							offLabel="Não" onIcon="pi pi-check" offIcon="pi pi-times" style="width:60px" />
 					</p:panelGrid>

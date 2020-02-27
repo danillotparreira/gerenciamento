@@ -24,10 +24,10 @@
 					<p:panelGrid columns="4"
 						columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid"
 						styleClass="ui-panelgrid-blank ui-fluid ui-noborder">
-						<p:outputLabel for="id" value="ID:" style="font-weight:bold" />
+						<p:outputLabel for="id" value="ID:" />
 						<p:inputText id="id" value="#{perfilbean.perfil.id}" readonly="true" />
 
-						<p:outputLabel for="descricao" value="Descrição:" style="font-weight:bold" />
+						<p:outputLabel for="descricao" value="Descrição:" />
 						<p:inputText id="descricao" value="#{perfilbean.perfil.descricao}" required="true"
 							requiredMessage="Deve ser informado a descrição." />
 					</p:panelGrid>
@@ -37,7 +37,7 @@
 								editable="true" editMode="cell">
 								<p:column headerText="Acesso a área" style="width:250px">
 									<h:outputText id="descricao_acao" value="#{acao.enumCadastros.descricao}"
-										style="font-weight:bold" />
+										/>
 								</p:column>
 								<p:column headerText="Listar">
 										<p:selectBooleanButton id="listar" value="#{acao.listar}" offLabel="Proibido"
@@ -84,7 +84,7 @@
 								editable="true">
 								<p:column headerText="Relatorio" style="width:250px">
 									<h:outputText id="descricao_acao" value="#{relatorio.enumRelatorios.descricao}"
-										style="font-weight:bold" />
+										/>
 								</p:column>
 								<p:column headerText="Visualizar">
 									<p:selectBooleanButton id="relatorio" value="#{relatorio.visualizar}" offLabel="Proibido"
