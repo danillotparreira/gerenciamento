@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" template="/WEB-INF/templateheader.xhtml">
+
+	<ui:define name="head">
+		<title>Configuração da conta</title>
+		<style type="text/css">
+.flex {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.flex .ui-button {
+	height: 32px;
+}
+
+.flex h3 {
+	margin: 0px;
+}
+
+#breadcrumb {
+	border: none;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="content" id="formulario">
+		<p:breadCrumb id="breadcrumb">
+			<p:menuitem value="Início" url="../../index.jsf" />
+			<p:menuitem value="Configuração da conta" url="conta.jsf" />
+			<p:menuitem value="Editar email" url="email.jsf" />
+		</p:breadCrumb>
+		<h:form id="formconta">
+			<h:message/>
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:panel header="Editar Email">
+				<p>Abaixo você poderá editar seu email no sistema, deve ser informado sua senha para
+					confimar se é realmente o usuário da conta.</p>
+				<h:panelGroup id="dados">
+					<p:outputLabel value="Email atual:" />
+					<div id="emailatual">#{loginbean.usuario.email}</div>
+					<p:outputLabel for="email" value="Email Novo" />
+					<br />
+					<p:inputText id="email" value="#{loginbean.email}" required="true" />
+					<br />
+					<p:outputLabel for="reptiremail" value="Confirmar email" />
+					<br />
+					<p:inputText id="reptiremail" value="#{loginbean.confirmacaoEmail}" required="true" />
+					<br />
+					<p:outputLabel for="senha" value="Senha" />
+					<br />
+					<p:password id="senha" value="#{loginbean.senha}" required="true" />
+				</h:panelGroup>
+			</p:panel>
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton value="Salvar alteração" action="#{loginbean.salvar}" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>

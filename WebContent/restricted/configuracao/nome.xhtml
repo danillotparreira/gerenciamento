@@ -8,7 +8,6 @@
 		<title>Configuração da conta</title>
 		<style type="text/css">
 .flex {
-	padding: 10px 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
@@ -32,31 +31,26 @@
 		<p:breadCrumb id="breadcrumb">
 			<p:menuitem value="Início" url="../../index.jsf" />
 			<p:menuitem value="Configuração da conta" url="conta.jsf" />
+			<p:menuitem value="Editar nome" url="nome.jsf" />
 		</p:breadCrumb>
-		<p:panel header="Configuração da conta">
-			<h:panelGroup id="geral">
-				<section class="flex">
-				<div>
-					<h:outputLabel value="Nome" /><br/>
-					<h:outputText value="#{loginbean.usuario.nome}" />
-				</div>
-				<p:linkButton value="Editar" outcome="/restricted/configuracao/nome.jsf" /> </section>
-				<p:separator />
-				<section class="flex">
-				<div>
-					<h:outputLabel value="Email" /><br/>
-					<h:outputText value="#{loginbean.usuario.email}" />
-				</div>
-				<p:linkButton value="Editar" outcome="/restricted/configuracao/email.jsf" /> </section>
-				<p:separator />
+		<h:form id="formconta">
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:panel header="Editar Nome">
 
-				<section class="flex">
-				<div>
-					<h:outputLabel value="Senha" /><br/>
-					<h:outputText value="********" />
-				</div>
-				<p:linkButton value="Editar" outcome="/restricted/configuracao/senha.jsf" /> </section>
-			</h:panelGroup>
-		</p:panel>
+				<p>Abaixo você poderá editar seu nome no sistema.</p>
+				<h:panelGroup>
+					<p:outputLabel value="Nome Atual" />
+					<div>${loginbean.usuario.nome}</div>
+				</h:panelGroup>
+				<p:outputLabel for="nome" value="Novo Nome" />
+				<br />
+				<p:inputText id="nome" value="#{loginbean.nome}" required="true" />
+			</p:panel>
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton value="Salvar alteração" action="#{loginbean.salvar}" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
 	</ui:define>
 </ui:composition>

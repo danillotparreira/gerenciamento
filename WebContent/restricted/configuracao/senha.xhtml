@@ -8,7 +8,6 @@
 		<title>Configuração da conta</title>
 		<style type="text/css">
 .flex {
-	padding: 10px 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
@@ -32,31 +31,33 @@
 		<p:breadCrumb id="breadcrumb">
 			<p:menuitem value="Início" url="../../index.jsf" />
 			<p:menuitem value="Configuração da conta" url="conta.jsf" />
+			<p:menuitem value="Editar Senha" url="senha.jsf" />
 		</p:breadCrumb>
-		<p:panel header="Configuração da conta">
-			<h:panelGroup id="geral">
-				<section class="flex">
-				<div>
-					<h:outputLabel value="Nome" /><br/>
-					<h:outputText value="#{loginbean.usuario.nome}" />
-				</div>
-				<p:linkButton value="Editar" outcome="/restricted/configuracao/nome.jsf" /> </section>
-				<p:separator />
-				<section class="flex">
-				<div>
-					<h:outputLabel value="Email" /><br/>
-					<h:outputText value="#{loginbean.usuario.email}" />
-				</div>
-				<p:linkButton value="Editar" outcome="/restricted/configuracao/email.jsf" /> </section>
-				<p:separator />
 
-				<section class="flex">
-				<div>
-					<h:outputLabel value="Senha" /><br/>
-					<h:outputText value="********" />
-				</div>
-				<p:linkButton value="Editar" outcome="/restricted/configuracao/senha.jsf" /> </section>
-			</h:panelGroup>
-		</p:panel>
+		<h:form id="formconta">
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:panel header="Editar Senha">
+				<h:panelGroup id="senhaedicao">
+					<p>Abaixo você poderá editar sua senha do sistema.</p>
+					<p:outputLabel for="senhaatual" value="Senha atual" />
+					<br />
+					<p:password id="senhaatual" maxlength="20" required="true" />
+					<br />
+					<p:outputLabel for="senhanova" value="Senha Nova" />
+					<br />
+					<p:password id="senhanova" maxlength="20" required="true" />
+					<br />
+					<p:outputLabel for="repetirsenha" value="Repetir Senha" />
+					<br />
+					<p:password id="repetirsenha" maxlength="20" required="true" />
+				</h:panelGroup>
+			</p:panel>
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton value="Salvar alteração" action="#{loginbean.salvar}" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+
 	</ui:define>
 </ui:composition>
