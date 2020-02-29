@@ -2,7 +2,7 @@
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
-	template="#{loginbean.loggedIn ? '/WEB-INF/template.xhtml' : '/WEB-INF/templateheader.xhtml'}">
+	template="#{loginbean.loggedIn ? '/WEB-INF/layout/template.xhtml' : '/WEB-INF/layout/templateheader.xhtml'}">
 	<ui:define name="head">
 		<h:outputStylesheet library="css" name="primeflex/primeflex.css" />
 		<title>Página Inicial</title>
