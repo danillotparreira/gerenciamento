@@ -16,7 +16,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<owasp-sanitizer.version>20190610.1</owasp-sanitizer.version>
-		<hibernate.version>5.4.4.Final</hibernate.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
 		<webapp-runner.version>9.0.31.0</webapp-runner.version>
 	</properties>
 
